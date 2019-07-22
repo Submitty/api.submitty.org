@@ -131,7 +131,15 @@ curl --request GET \
             "rot_section": "NULL",
             "group": "Student"
         },
-        # other data omitted
+        {
+            "first_name": "Delphia",
+            "last_name": "Aufderhar",
+            "user_id": "aufded",
+            "email": "aufded@example.com",
+            "reg_section": "1",
+            "rot_section": "1",
+            "group": "Student"
+        },
     ]
 }
 ```
@@ -163,7 +171,15 @@ curl --request GET \
             "rot_section": "NULL",
             "group": "Instructor"
         },
-        # other data omitted
+        {
+            "first_name": "Jill",
+            "last_name": "TA",
+            "user_id": "ta",
+            "email": "ta@example.com",
+            "reg_section": "",
+            "rot_section": "NULL",
+            "group": "Full Access Grader (Grad TA)"
+        },
     ]
 }
 ```
