@@ -20,6 +20,34 @@ API provides an alternative way of interacting with Submitty. It facilitates tes
 
 Note that as we rely on the Authorization header information to authenticate users, please make sure that you have a correct Apache configuration file as specified in [Installation Version Notes: v19.06.02](https://submitty.org/sysadmin/version_notes/v19.06.02).
 
+# Responses
+
+> Example of a `success` JSON response:
+
+```json
+{
+  "status": "success",
+  "data": null
+}
+```
+
+> Example of a `fail` JSON response:
+
+```json
+{
+  "status": "fail",
+  "message": "Did not specify gradeable"
+}
+```
+
+All API responses conform to a modified version of [JSend specification](https://labs.omniti.com/labs/jsend). A response returned from the server is expected to be one of the following three response types.
+
+| Type    | Description                                                                                         | Required Keys   | Optional Keys |
+|---------|-----------------------------------------------------------------------------------------------------|-----------------|---------------|
+| success | All went well, and (usually) some data was returned                                                 | status, data    |               |
+| fail    | There was a problem with the data submitted, or some pre-condition of the API call wasn't satisfied | status, message | data          |
+| error   | An error occurred in processing the request, i.e. an exception was thrown                           | status, message | data, code    |
+
 # Authentication
 
 ```shell
