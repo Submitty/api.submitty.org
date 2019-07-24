@@ -79,7 +79,7 @@ You must replace <code>my_token</code> with your personal API key.
 
 ```shell
 curl -X POST \
-  http://192.168.56.111/api/token \
+  <base_url>/api/token \
   -F user_id=instructor \
   -F password=instructor
 ```
@@ -105,3 +105,85 @@ Parameter | Description
 --------- | -----------
 user_id | User's unique ID
 password | User's password
+
+# Courses.Users
+
+## Get Users
+
+```shell
+curl --request GET \
+  --url <base_url>/api/<semester>/<course>/users \
+  --header 'Authorization: my_token'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "status": "success",
+    "data": [
+        {
+            "first_name": "Alyssa P",
+            "last_name": "Hacker",
+            "user_id": "aphacker",
+            "email": "alyssaphacker@example.com",
+            "reg_section": "1",
+            "rot_section": "NULL",
+            "group": "Student"
+        },
+        {
+            "first_name": "Delphia",
+            "last_name": "Aufderhar",
+            "user_id": "aufded",
+            "email": "aufded@example.com",
+            "reg_section": "1",
+            "rot_section": "1",
+            "group": "Student"
+        },
+    ]
+}
+```
+
+### HTTP Request
+
+`GET /api/users`
+
+## Get Graders
+
+```shell
+curl --request GET \
+  --url <base_url>/api/<semester>/<course>/graders \
+  --header 'Authorization: my_token'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "status": "success",
+    "data": [
+        {
+            "first_name": "Quinn",
+            "last_name": "Instructor",
+            "user_id": "instructor",
+            "email": "instructor@example.com",
+            "reg_section": "All",
+            "rot_section": "NULL",
+            "group": "Instructor"
+        },
+        {
+            "first_name": "Jill",
+            "last_name": "TA",
+            "user_id": "ta",
+            "email": "ta@example.com",
+            "reg_section": "",
+            "rot_section": "NULL",
+            "group": "Full Access Grader (Grad TA)"
+        },
+    ]
+}
+```
+
+### HTTP Request
+
+`GET /api/graders`
