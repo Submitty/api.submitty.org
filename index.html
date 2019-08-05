@@ -1,0 +1,533 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="https://submitty.cs.rpi.edu/img/favicon.ico" rel="icon" type="image/ico" />
+    <title>Submitty API Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;shell&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/logo.png" class="logo" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">shell</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#responses" class="toc-h1 toc-link" data-title="Responses">Responses</a>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-token" class="toc-h2 toc-link" data-title="Get Token">Get Token</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#courses" class="toc-h1 toc-link" data-title="Courses">Courses</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-courses" class="toc-h2 toc-link" data-title="Get Courses">Get Courses</a>
+                  </li>
+                  <li>
+                    <a href="#create-courses" class="toc-h2 toc-link" data-title="Create Courses">Create Courses</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#courses-users" class="toc-h1 toc-link" data-title="Courses.Users">Courses.Users</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-users" class="toc-h2 toc-link" data-title="Get Users">Get Users</a>
+                  </li>
+                  <li>
+                    <a href="#get-graders" class="toc-h2 toc-link" data-title="Get Graders">Get Graders</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#courses-reports" class="toc-h1 toc-link" data-title="Courses.Reports">Courses.Reports</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#generate-grade-summaries" class="toc-h2 toc-link" data-title="Generate Grade Summaries">Generate Grade Summaries</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+        <ul class="toc-footer">
+            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<p><em>Note: API is still a work in progress.</em></p>
+
+<p>API provides an alternative way of interacting with Submitty. It facilitates testing, helps system administrators to modify resources and enables users to create customized frontends.</p>
+
+<p>Note that as we rely on the Authorization header information to authenticate users, please make sure that you have a correct Apache configuration file as specified in <a href="https://submitty.org/sysadmin/version_notes/v19.06.02">Installation Version Notes: v19.06.02</a>.</p>
+<h1 id='responses'>Responses</h1>
+<blockquote>
+<p>Example of a <code>success</code> JSON response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Example of a <code>fail</code> JSON response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fail"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Did not specify gradeable"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>All API responses conform to a modified version of <a href="https://labs.omniti.com/labs/jsend">JSend specification</a>. A response returned from the server is expected to be one of the following three response types.</p>
+
+<table><thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+<th>Required Keys</th>
+<th>Optional Keys</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>success</td>
+<td>All went well, and (usually) some data was returned</td>
+<td>status, data</td>
+<td></td>
+</tr>
+<tr>
+<td>fail</td>
+<td>There was a problem with the data submitted, or some pre-condition of the API call wasn&#39;t satisfied</td>
+<td>status, message</td>
+<td>data</td>
+</tr>
+<tr>
+<td>error</td>
+<td>An error occurred in processing the request, i.e. an exception was thrown</td>
+<td>status, message</td>
+<td>data, code</td>
+</tr>
+</tbody></table>
+<h1 id='authentication'>Authentication</h1><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
+curl <span class="s2">"api_endpoint_here"</span>
+  -H <span class="s2">"Authorization: my_token"</span>
+</code></pre>
+<blockquote>
+<p>Make sure to replace <code>my_token</code> with your API token, or API will return JSON like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fail"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unauthenticated access. Please log in."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Submitty uses <a href="https://jwt.io/">JSON Web Tokens</a> to allow access to the API. You can obtain your API key through the following endpoint.</p>
+
+<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+
+<p><code>Authorization: my_token</code></p>
+
+<aside class="notice">
+You must replace <code>my_token</code> with your personal API key.
+</aside>
+<h2 id='get-token'>Get Token</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
+  &lt;base_url&gt;/api/token <span class="se">\</span>
+  -F <span class="nv">user_id</span><span class="o">=</span>instructor <span class="se">\</span>
+  -F <span class="nv">password</span><span class="o">=</span>instructor
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a long string"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request'>HTTP Request</h3>
+<p><code>POST /api/token</code></p>
+<h3 id='parameters'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>user_id</td>
+<td>User&#39;s unique ID</td>
+</tr>
+<tr>
+<td>password</td>
+<td>User&#39;s password</td>
+</tr>
+</tbody></table>
+<h1 id='courses'>Courses</h1><h2 id='get-courses'>Get Courses</h2><pre class="highlight shell tab-shell"><code>curl --request GET <span class="se">\</span>
+  --url &lt;base_url&gt;/api/courses <span class="se">\</span>
+  --header <span class="s1">'Authorization: my_token'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"unarchived_courses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"semester"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f19"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"blank"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"display_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"display_semester"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fall 2019"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"archived_courses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"semester"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f19"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sample"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"display_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"display_semester"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fall 2019"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Get all the courses the user is taking or have taken.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET /api/courses</code></p>
+<h2 id='create-courses'>Create Courses</h2><pre class="highlight shell tab-shell"><code>curl --request POST <span class="se">\</span>
+  --url &lt;base_url&gt;/api/courses <span class="se">\</span>
+  --form <span class="nv">course_semester</span><span class="o">=</span>f19 <span class="se">\</span>
+  --form <span class="nv">course_title</span><span class="o">=</span>api <span class="se">\</span>
+  --form <span class="nv">head_instructor</span><span class="o">=</span>instructor <span class="se">\</span>
+  --form <span class="nv">base_course_semester</span><span class="o">=</span>f19 <span class="se">\</span>
+  --form <span class="nv">base_course_title</span><span class="o">=</span>sample <span class="se">\</span>
+  --header <span class="s1">'Authorization: my_token'</span>
+</code></pre>
+<p>This endpoint creates a course based on an existing course.</p>
+
+<p>Note that the endpoint builds a course based on a prior course offering (called base course in API). Instructors and graders with access to the prior course files on GNU/Linux will be able to see the content of the new course as well. Contact the system administrator if this course should not share a GNU/Linux group with any prior course.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST /api/courses</code></p>
+<h3 id='parameters-2'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>course_semester</td>
+<td>Semester of the new course</td>
+</tr>
+<tr>
+<td>course_title</td>
+<td>Title (or code) of the new course</td>
+</tr>
+<tr>
+<td>head_instructor</td>
+<td>Head instructor of the new course</td>
+</tr>
+<tr>
+<td>base_course_semester</td>
+<td>Semester of the base course</td>
+</tr>
+<tr>
+<td>base_course_title</td>
+<td>Title (or code) of the base course</td>
+</tr>
+</tbody></table>
+<h1 id='courses-users'>Courses.Users</h1><h2 id='get-users'>Get Users</h2><pre class="highlight shell tab-shell"><code>curl --request GET <span class="se">\</span>
+  --url &lt;base_url&gt;/api/&lt;semester&gt;/&lt;course&gt;/users <span class="se">\</span>
+  --header <span class="s1">'Authorization: my_token'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alyssa P"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hacker"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aphacker"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alyssaphacker@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"reg_section"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"rot_section"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NULL"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Student"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Delphia"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aufderhar"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aufded"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aufded@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"reg_section"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"rot_section"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Student"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET /api/&lt;semester&gt;/&lt;course&gt;/users</code></p>
+<h2 id='get-graders'>Get Graders</h2><pre class="highlight shell tab-shell"><code>curl --request GET <span class="se">\</span>
+  --url &lt;base_url&gt;/api/&lt;semester&gt;/&lt;course&gt;/graders <span class="se">\</span>
+  --header <span class="s1">'Authorization: my_token'</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Quinn"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Instructor"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"instructor"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"instructor@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"reg_section"</span><span class="p">:</span><span class="w"> </span><span class="s2">"All"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"rot_section"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NULL"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Instructor"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jill"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TA"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ta"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ta@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"reg_section"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"rot_section"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NULL"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Full Access Grader (Grad TA)"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-5'>HTTP Request</h3>
+<p><code>GET /api/&lt;semester&gt;/&lt;course&gt;/graders</code></p>
+<h1 id='courses-reports'>Courses.Reports</h1><h2 id='generate-grade-summaries'>Generate Grade Summaries</h2><pre class="highlight shell tab-shell"><code>curl --request POST <span class="se">\</span>
+  --url &lt;base_url&gt;/api/&lt;semester&gt;/&lt;course&gt;/reports/summaries <span class="se">\</span>
+  --header <span class="s1">'Authorization: my_token'</span>
+</code></pre>
+<p>This endpoint helps system administrators set up cron jobs for automatic grade summary generation.</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>POST /api/&lt;semester&gt;/&lt;course&gt;/reports/summaries</code></p>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">shell</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
