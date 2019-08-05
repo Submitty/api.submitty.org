@@ -146,7 +146,7 @@ curl --request GET \
 
 ### HTTP Request
 
-`GET /api/users`
+`GET /api/<semester>/<course>/users`
 
 ## Get Graders
 
@@ -186,4 +186,20 @@ curl --request GET \
 
 ### HTTP Request
 
-`GET /api/graders`
+`GET /api/<semester>/<course>/graders`
+
+# Courses.Reports
+
+## Generate Grade Summaries
+
+```shell
+curl --request POST \
+  --url <base_url>/api/<semester>/<course>/reports/summaries \
+  --header 'Authorization: my_token'
+```
+
+This endpoint helps system administrators set up cron jobs for automatic grade summary generation.
+
+### HTTP Request
+
+`POST /api/<semester>/<course>/reports/summaries`
