@@ -163,7 +163,7 @@ curl --request POST \
 
 This endpoint creates a course based on an existing course.
 
-Note that the endpoint builds a course based on an existing course (called base course or template course). Instructors and graders with access to the prior course files on GNU/Linux will be able to see the content of the new course as well. Contact the system administrator if this course should not share a GNU/Linux group with any prior course.
+Note that the endpoint builds a course based on a prior course offering (called base course in API). Instructors and graders with access to the prior course files on GNU/Linux will be able to see the content of the new course as well. Contact the system administrator if this course should not share a GNU/Linux group with any prior course.
 
 ### HTTP Request
 
