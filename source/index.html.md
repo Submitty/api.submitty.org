@@ -106,6 +106,49 @@ Parameter | Description
 user_id | User's unique ID
 password | User's password
 
+# Courses
+
+## Get Courses
+
+```shell
+curl --request GET \
+  --url <base_url>/api/courses \
+  --header 'Authorization: my_token'
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "status": "success",
+    "data": {
+        "unarchived_courses": [
+            {
+                "semester": "f19",
+                "title": "blank",
+                "display_name": "",
+                "display_semester": "Fall 2019"
+            }
+        ],
+        "archived_courses": [
+            {
+                "semester": "f19",
+                "title": "sample",
+                "display_name": "",
+                "display_semester": "Fall 2019"
+            }
+        ]
+    }
+}
+```
+
+Get all the courses the user is taking or have taken.
+
+
+### HTTP Request
+
+`GET /api/courses`
+
 # Courses.Users
 
 ## Get Users
