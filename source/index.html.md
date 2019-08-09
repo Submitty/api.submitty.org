@@ -65,14 +65,14 @@ curl "api_endpoint_here"
 }
 ```
 
-Submitty uses [JSON Web Tokens](https://jwt.io/) to allow access to the API. You can obtain your API key through the following endpoint.
+Submitty uses [JSON Web Tokens](https://jwt.io/) to allow access to the API. You can obtain your API token through the following endpoint.
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+Kittn expects for the API token to be included in all API requests to the server in a header that looks like the following:
 
 `Authorization: my_token`
 
 <aside class="notice">
-You must replace <code>my_token</code> with your personal API key.
+You must replace <code>my_token</code> with your personal API token.
 </aside>
 
 ## Get Token
@@ -95,9 +95,33 @@ curl -X POST \
 }
 ```
 
+Note that every time you request a new token, the previous token will be invalidated.
+
 ### HTTP Request
 
 `POST /api/token`
+
+### Parameters
+
+Parameter | Description
+--------- | -----------
+user_id | User's unique ID
+password | User's password
+
+## Invalidate Token
+
+```shell
+curl -X POST \
+  <base_url>/api/token/invalidate \
+  -F user_id=instructor \
+  -F password=instructor
+```
+
+The endpoint invalidates the token you requested before.
+
+### HTTP Request
+
+`POST /api/token/invalidate`
 
 ### Parameters
 
