@@ -231,6 +231,9 @@
                   <li>
                     <a href="#get-token" class="toc-h2 toc-link" data-title="Get Token">Get Token</a>
                   </li>
+                  <li>
+                    <a href="#invalidate-token" class="toc-h2 toc-link" data-title="Invalidate Token">Invalidate Token</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -335,14 +338,14 @@ curl <span class="s2">"api_endpoint_here"</span>
     </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unauthenticated access. Please log in."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Submitty uses <a href="https://jwt.io/">JSON Web Tokens</a> to allow access to the API. You can obtain your API key through the following endpoint.</p>
+<p>Submitty uses <a href="https://jwt.io/">JSON Web Tokens</a> to allow access to the API. You can obtain your API token through the following endpoint.</p>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>Kittn expects for the API token to be included in all API requests to the server in a header that looks like the following:</p>
 
 <p><code>Authorization: my_token</code></p>
 
 <aside class="notice">
-You must replace <code>my_token</code> with your personal API key.
+You must replace <code>my_token</code> with your personal API token.
 </aside>
 <h2 id='get-token'>Get Token</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
   &lt;base_url&gt;/api/token <span class="se">\</span>
@@ -358,9 +361,35 @@ You must replace <code>my_token</code> with your personal API key.
         </span><span class="s2">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a long string"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='http-request'>HTTP Request</h3>
+</span></code></pre>
+<p>Note that every time you request a new token, the previous token will be invalidated.</p>
+<h3 id='http-request'>HTTP Request</h3>
 <p><code>POST /api/token</code></p>
 <h3 id='parameters'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>user_id</td>
+<td>User&#39;s unique ID</td>
+</tr>
+<tr>
+<td>password</td>
+<td>User&#39;s password</td>
+</tr>
+</tbody></table>
+<h2 id='invalidate-token'>Invalidate Token</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="se">\</span>
+  &lt;base_url&gt;/api/token/invalidate <span class="se">\</span>
+  -F <span class="nv">user_id</span><span class="o">=</span>instructor <span class="se">\</span>
+  -F <span class="nv">password</span><span class="o">=</span>instructor
+</code></pre>
+<p>The endpoint invalidates the token you requested before.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST /api/token/invalidate</code></p>
+<h3 id='parameters-2'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -406,7 +435,7 @@ You must replace <code>my_token</code> with your personal API key.
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Get all the courses the user is taking or have taken.</p>
-<h3 id='http-request-2'>HTTP Request</h3>
+<h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET /api/courses</code></p>
 <h2 id='create-courses'>Create Courses</h2><pre class="highlight shell tab-shell"><code>curl --request POST <span class="se">\</span>
   --url &lt;base_url&gt;/api/courses <span class="se">\</span>
@@ -420,9 +449,9 @@ You must replace <code>my_token</code> with your personal API key.
 <p>This endpoint creates a course based on an existing course.</p>
 
 <p>Note that the endpoint builds a course based on a prior course offering (called base course in API). Instructors and graders with access to the prior course files on GNU/Linux will be able to see the content of the new course as well. Contact the system administrator if this course should not share a GNU/Linux group with any prior course.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
+<h3 id='http-request-4'>HTTP Request</h3>
 <p><code>POST /api/courses</code></p>
-<h3 id='parameters-2'>Parameters</h3>
+<h3 id='parameters-3'>Parameters</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -480,7 +509,9 @@ You must replace <code>my_token</code> with your personal API key.
         </span><span class="p">},</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='http-request-4'>HTTP Request</h3>
+</span></code></pre>
+<p>This end point gets all users in a course.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
 <p><code>GET /api/&lt;semester&gt;/&lt;course&gt;/users</code></p>
 <h2 id='get-graders'>Get Graders</h2><pre class="highlight shell tab-shell"><code>curl --request GET <span class="se">\</span>
   --url &lt;base_url&gt;/api/&lt;semester&gt;/&lt;course&gt;/graders <span class="se">\</span>
@@ -512,14 +543,14 @@ You must replace <code>my_token</code> with your personal API key.
         </span><span class="p">},</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre><h3 id='http-request-5'>HTTP Request</h3>
+</span></code></pre><h3 id='http-request-6'>HTTP Request</h3>
 <p><code>GET /api/&lt;semester&gt;/&lt;course&gt;/graders</code></p>
 <h1 id='courses-reports'>Courses.Reports</h1><h2 id='generate-grade-summaries'>Generate Grade Summaries</h2><pre class="highlight shell tab-shell"><code>curl --request POST <span class="se">\</span>
   --url &lt;base_url&gt;/api/&lt;semester&gt;/&lt;course&gt;/reports/summaries <span class="se">\</span>
   --header <span class="s1">'Authorization: my_token'</span>
 </code></pre>
 <p>This endpoint helps system administrators set up cron jobs for automatic grade summary generation.</p>
-<h3 id='http-request-6'>HTTP Request</h3>
+<h3 id='http-request-7'>HTTP Request</h3>
 <p><code>POST /api/&lt;semester&gt;/&lt;course&gt;/reports/summaries</code></p>
 
       </div>
