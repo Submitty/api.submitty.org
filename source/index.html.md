@@ -241,6 +241,8 @@ curl --request GET \
 }
 ```
 
+This end point gets all users in a course.
+
 ### HTTP Request
 
 `GET /api/<semester>/<course>/users`
