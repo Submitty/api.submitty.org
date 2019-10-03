@@ -1,0 +1,18 @@
+language: ruby
+cache: bundler
+
+rvm:
+  - 2.5.3
+
+script:
+  - ./deploy.sh --source-only
+
+deploy:
+  provider: pages
+  local_dir: build/
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  target_branch: gh-pages
+  on:
+    branch: master
