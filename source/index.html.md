@@ -20,6 +20,25 @@ API provides an alternative way of interacting with Submitty. It facilitates tes
 
 Note that as we rely on the Authorization header information to authenticate users, please make sure that you have a correct Apache configuration file as specified in [Installation Version Notes: v19.06.02](https://submitty.org/sysadmin/version_notes/v19.06.02).
 
+<aside class="warning">
+The API is not formally versioned at this time, and its endpoints and their responses may change
+without warning. Use at your own risk!
+</aside>
+
+# Requests
+
+Submitty supports requests using the following two `content-types`:
+
+* application/json
+* application/x-www-form-urlencoded
+
+while anything involving files should use:
+
+* multipart/form-data
+
+All endpoints use the `/api` path off the base Submitty URL, followed by the specific endpoint
+for the API in question.
+
 # Responses
 
 > Example of a `success` JSON response:
@@ -40,10 +59,12 @@ Note that as we rely on the Authorization header information to authenticate use
 }
 ```
 
-All API responses conform to a modified version of [JSend specification](https://labs.omniti.com/labs/jsend). A response returned from the server is expected to be one of the following three response types.
+All API responses will be returned as `application/json` and conform to a modified
+version of the [JSend specification](https://labs.omniti.com/labs/jsend). A response
+returned from the server is expected to be one of the following three response types.
 
 | Type    | Description                                                                                         | Required Keys   | Optional Keys |
-|---------|-----------------------------------------------------------------------------------------------------|-----------------|---------------|
+|---------|-----------------------------------------------------------------------------------------------------|----------------|---------------|
 | success | All went well, and (usually) some data was returned                                                 | status, data    |               |
 | fail    | There was a problem with the data submitted, or some pre-condition of the API call wasn't satisfied | status, message | data          |
 | error   | An error occurred in processing the request, i.e. an exception was thrown                           | status, message | data, code    |
