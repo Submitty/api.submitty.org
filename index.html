@@ -223,6 +223,9 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
+            <a href="#requests" class="toc-h1 toc-link" data-title="Requests">Requests</a>
+          </li>
+          <li>
             <a href="#responses" class="toc-h1 toc-link" data-title="Responses">Responses</a>
           </li>
           <li>
@@ -280,6 +283,27 @@
 <p>API provides an alternative way of interacting with Submitty. It facilitates testing, helps system administrators to modify resources and enables users to create customized frontends.</p>
 
 <p>Note that as we rely on the Authorization header information to authenticate users, please make sure that you have a correct Apache configuration file as specified in <a href="https://submitty.org/sysadmin/version_notes/v19.06.02">Installation Version Notes: v19.06.02</a>.</p>
+
+<aside class="warning">
+The API is not formally versioned at this time, and its endpoints and their responses may change
+without warning. Use at your own risk!
+</aside>
+<h1 id='requests'>Requests</h1>
+<p>Submitty supports requests using the following two <code>content-types</code>:</p>
+
+<ul>
+<li>application/json</li>
+<li>application/x-www-form-urlencoded</li>
+</ul>
+
+<p>while anything involving files should use:</p>
+
+<ul>
+<li>multipart/form-data</li>
+</ul>
+
+<p>All endpoints use the <code>/api</code> path off the base Submitty URL, followed by the specific endpoint
+for the API in question.</p>
 <h1 id='responses'>Responses</h1>
 <blockquote>
 <p>Example of a <code>success</code> JSON response:</p>
@@ -297,7 +321,9 @@
   </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Did not specify gradeable"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>All API responses conform to a modified version of <a href="https://labs.omniti.com/labs/jsend">JSend specification</a>. A response returned from the server is expected to be one of the following three response types.</p>
+<p>All API responses will be returned as <code>application/json</code> and conform to a modified
+version of the <a href="https://labs.omniti.com/labs/jsend">JSend specification</a>. A response
+returned from the server is expected to be one of the following three response types.</p>
 
 <table><thead>
 <tr>
