@@ -4,6 +4,10 @@ cache: bundler
 rvm:
   - 2.5.3
 
+before_install:
+  - gem update --system
+  - gem install bundler
+
 script:
   - ./deploy.sh --source-only
 
