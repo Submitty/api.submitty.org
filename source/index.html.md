@@ -16,6 +16,8 @@ search: true
 
 *Note: API is still a work in progress.*
 
+For the students, view <a href="/student_api">the student api</a>
+
 API provides an alternative way of interacting with Submitty. It facilitates testing, helps system administrators to modify resources and enables users to create customized frontends.
 
 Note that as we rely on the Authorization header information to authenticate users, please make sure that you have a correct Apache configuration file as specified in [Installation Version Notes: v19.06.02](https://submitty.org/sysadmin/version_notes/v19.06.02).
