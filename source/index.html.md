@@ -16,8 +16,7 @@ search: true
 
 *Note: API is still a work in progress.*
 
-For the students, view <a href="/student_api">the student api</a>
-
+Most of the API is restricted to faculty, however the [Gradeables](#gradeables) section can be used by students or faculty.
 API provides an alternative way of interacting with Submitty. It facilitates testing, helps system administrators to modify resources and enables users to create customized frontends.
 
 Note that as we rely on the Authorization header information to authenticate users, please make sure that you have a correct Apache configuration file as specified in [Installation Version Notes: v19.06.02](https://submitty.org/sysadmin/version_notes/v19.06.02).
@@ -171,18 +170,18 @@ curl --request GET \
     "data": {
         "unarchived_courses": [
             {
-                "semester": "f19",
+                "term": "f19",
                 "title": "blank",
                 "display_name": "",
-                "display_semester": "Fall 2019"
+                "display_term": "Fall 2019"
             }
         ],
         "archived_courses": [
             {
-                "semester": "f19",
+                "term": "f19",
                 "title": "sample",
                 "display_name": "",
-                "display_semester": "Fall 2019"
+                "display_term": "Fall 2019"
             }
         ]
     }
@@ -200,10 +199,10 @@ Get all the courses the user is taking or have taken.
 ```shell
 curl --request POST \
   --url <base_url>/api/courses \
-  --form course_semester=f19 \
+  --form course_term=f19 \
   --form course_title=api \
   --form head_instructor=instructor \
-  --form base_course_semester=f19 \
+  --form base_course_term=f19 \
   --form base_course_title=sample \
   --header 'Authorization: my_token'
 ```
@@ -220,10 +219,10 @@ Note that the endpoint builds a course based on a prior course offering (called 
 
 Parameter | Description
 --------- | -----------
-course_semester | Semester of the new course
+course_term | term of the new course
 course_title | Title (or code) of the new course
 head_instructor | Head instructor of the new course
-base_course_semester | Semester of the base course
+base_course_term | term of the base course
 base_course_title | Title (or code) of the base course
 
 # Courses.Users
@@ -232,7 +231,7 @@ base_course_title | Title (or code) of the base course
 
 ```shell
 curl --request GET \
-  --url <base_url>/api/<semester>/<course>/users \
+  --url <base_url>/api/<term>/<course>/users \
   --header 'Authorization: my_token'
 ```
 
@@ -268,13 +267,13 @@ This end point gets all users in a course.
 
 ### HTTP Request
 
-`GET /api/<semester>/<course>/users`
+`GET /api/<term>/<course>/users`
 
 ## Get Graders
 
 ```shell
 curl --request GET \
-  --url <base_url>/api/<semester>/<course>/graders \
+  --url <base_url>/api/<term>/<course>/graders \
   --header 'Authorization: my_token'
 ```
 
@@ -308,7 +307,7 @@ curl --request GET \
 
 ### HTTP Request
 
-`GET /api/<semester>/<course>/graders`
+`GET /api/<term>/<course>/graders`
 
 # Courses.Reports
 
@@ -316,7 +315,7 @@ curl --request GET \
 
 ```shell
 curl --request POST \
-  --url <base_url>/api/<semester>/<course>/reports/summaries \
+  --url <base_url>/api/<term>/<course>/reports/summaries \
   --header 'Authorization: my_token'
 ```
 
@@ -324,4 +323,95 @@ This endpoint helps system administrators set up cron jobs for automatic grade s
 
 ### HTTP Request
 
-`POST /api/<semester>/<course>/reports/summaries`
+`POST /api/<term>/<course>/reports/summaries`
+
+
+# Gradeables
+## Get gradeable values
+
+```shell
+curl -X GET \
+  <base_url>/api/<term>/<course>/gradeable/<gradeable_id>/values?user_id=<user_id>
+
+```
+> Possible response examples:
+
+```json
+{
+    "status": "success",
+    "data": {
+        "is_queued": false,
+        "queue_position": 3,
+        "is_grading": false,
+        "has_submission": true,
+        "autograding_complete": true,
+        "has_active_version": true,
+        "highest_version": 1,
+        "total_points": 0,
+        "total_percent": 0
+    }
+}
+```
+```json
+{
+    "status": "fail",
+    "message": "Gradeable does not exist"
+}
+```
+
+The endpoint returns values associated with an autograded gradeable with the given gradeable_id, which allows for determining a score on an assignment, if it has been graded, etc. 
+
+### HTTP Request
+
+`GET /api/<term>/<course>/gradeable/<gradeable_id>/values?user_id=<user_id>`
+
+### Parameters
+
+Parameter | Description
+--------- | -----------
+user_id | User's unique ID
+
+## Submit VCS Gradeable
+
+```shell
+curl -X POST \
+  <base_url>/api/<term>/<course>/gradeable/<gradeable_id>/upload\
+  -F user_id=student \
+  -F vcs_checkout=true \
+  -F git_repo_id=true
+```
+> Possible responses:
+
+```json
+{
+    "status": "success",
+    "data": "Successfully uploaded version {#} for {Gradeable Title}"
+}
+```
+```json
+{
+    "status": "fail",
+    "message": "Invalid gradeable id '{Gradeable ID}'"
+}
+```
+```json
+{
+    "status": "fail",
+    "message": "Student API for upload only supports VCS gradeables"
+}
+```
+
+
+The endpoint requests for a VCS gradeable with the given gradeable_id to be submitted.
+
+### HTTP Request
+
+`POST /api/<term>/<course>/gradeable/<gradeable_id>/upload`
+
+### Parameters
+
+Parameter | Description
+--------- | -----------
+user_id | User's unique ID
+vcs_checkout | Required to be `true`
+git_repo_id | Required value, however no specific value is checked.
