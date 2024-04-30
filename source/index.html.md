@@ -219,10 +219,10 @@ Note that the endpoint builds a course based on a prior course offering (called 
 
 Parameter | Description
 --------- | -----------
-course_semester | semester of the new course
+course_semester | Semester of the new course
 course_title | Title (or code) of the new course
 head_instructor | Head instructor of the new course
-base_course_semester | semester of the base course
+base_course_semester | Semester of the base course
 base_course_title | Title (or code) of the base course
 
 # Courses.Users

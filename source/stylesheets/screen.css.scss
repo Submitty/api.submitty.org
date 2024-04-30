@@ -2,7 +2,7 @@
 @import 'normalize';
 @import 'variables';
 @import 'icon-font';
-/*@import 'rtl'; // uncomment to switch to RTL format*/
+// @import 'rtl'; // uncomment to switch to RTL format
 
 /*
 Copyright 2008-2013 Concur Technologies, Inc.
@@ -33,7 +33,7 @@ html, body {
   @extend %default-font;
   background-color: $main-bg;
   height: 100%;
-  -webkit-text-size-adjust: none;
+  -webkit-text-size-adjust: none; /* Never autoresize text */
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -62,6 +62,7 @@ html, body {
   font-size: 13px;
   font-weight: bold;
 
+  // language selector for mobile devices
   .lang-selector {
     display: none;
     a {
@@ -70,6 +71,7 @@ html, body {
     }
   }
 
+  // This is the logo at the top of the ToC
   .logo {
     display: block;
     max-width: 100%;
@@ -89,7 +91,7 @@ html, body {
       width: $nav-width - ($nav-padding*2);
       outline: none;
       color: $nav-text;
-      border-radius: 0;
+      border-radius: 0; /* ios has a default border radius */
     }
 
     &:before {
@@ -218,7 +220,7 @@ html, body {
     transform: rotate(-90deg) translate(-100%, 0);
     border-radius: 0 0 0 5px;
   }
-  padding: 0 1.5em 5em 0; 
+  padding: 0 1.5em 5em 0; // increase touch size area
   display: none;
   position: fixed;
   top: 0;
@@ -252,7 +254,7 @@ html, body {
   background-color: $main-bg;
   min-height: 100%;
 
-  padding-bottom: 1px;
+  padding-bottom: 1px; // prevent margin overflow
 
   // The dark box is what gives the code samples their dark background.
   // It sits essentially under the actual content block, which has a
@@ -312,7 +314,9 @@ html, body {
 // This is all the stuff with the light background in the left half of the page
 
 .content {
+  // fixes webkit rendering bug for some: see #538
   -webkit-transform: translateZ(0);
+  // to place content above the dark box
   position: relative;
   z-index: 30;
 
