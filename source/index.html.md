@@ -16,7 +16,7 @@ search: true
 
 *Note: API is still a work in progress.*
 
-Most of the API is restricted to faculty, however the [Gradeables](#gradeables) section can be used by students or faculty.
+Most of the API is restricted to faculty, however the [Students](#students) section can be used by students or faculty.
 API provides an alternative way of interacting with Submitty. It facilitates testing, helps system administrators to modify resources and enables users to create customized frontends.
 
 Note that as we rely on the Authorization header information to authenticate users, please make sure that you have a correct Apache configuration file as specified in [Installation Version Notes: v19.06.02](https://submitty.org/sysadmin/version_notes/v19.06.02).
@@ -325,8 +325,57 @@ This endpoint helps system administrators set up cron jobs for automatic grade s
 
 `POST /api/<semester>/<course>/reports/summaries`
 
-
 # Gradeables
+
+## Download Gradeable JSON
+
+```shell
+curl --request GET \
+  --url <base_url>/api/<semester>/<course>/<gradeable_id>/download \
+  --header 'Authorization: my_token'
+```
+
+This endpoint downloads the JSON representation of the gradeable with the given gradeable_id, course, and semester. 
+This JSON file can be uploaded to add createa a new gradeable.
+
+### HTTP Request
+
+`GET /api/<semester>/<course>/<gradeable_id>/download`
+
+### Parameters
+
+Parameter | Description
+--------- | -----------
+semester | Semester of the gradeable
+course   | Course of the gradeable
+gradeable_id | ID of the gradeable
+
+
+## Upload Gradeable JSON
+
+```shell
+curl --request POST \
+  --url <base_url>/api/<semester>/<course>/<gradeable_id>/download \
+  --header 'Authorization: my_token'
+```
+
+This endpoint downloads the JSON representation of the gradeable with the given gradeable_id, course, and semester. 
+This JSON file can be uploaded to add createa a new gradeable.
+
+### HTTP Request
+
+`GET /api/<semester>/<course>/<gradeable_id>/download`
+
+### Parameters
+
+Parameter | Description
+--------- | -----------
+semester | Semester of the gradeable
+course   | Course of the gradeable
+gradeable_id | ID of the gradeable
+
+
+# Students
 ## Get gradeable values
 
 ```shell
