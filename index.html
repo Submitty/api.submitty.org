@@ -269,6 +269,28 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#gradeables" class="toc-h1 toc-link" data-title="Gradeables">Gradeables</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#download-gradeable-json" class="toc-h2 toc-link" data-title="Download Gradeable JSON">Download Gradeable JSON</a>
+                  </li>
+                  <li>
+                    <a href="#upload-gradeable-json" class="toc-h2 toc-link" data-title="Upload Gradeable JSON">Upload Gradeable JSON</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#students" class="toc-h1 toc-link" data-title="Students">Students</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-gradeable-values" class="toc-h2 toc-link" data-title="Get gradeable values">Get gradeable values</a>
+                  </li>
+                  <li>
+                    <a href="#submit-vcs-gradeable" class="toc-h2 toc-link" data-title="Submit VCS Gradeable">Submit VCS Gradeable</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
         <ul class="toc-footer">
             <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
@@ -280,7 +302,8 @@
         <h1 id='introduction'>Introduction</h1>
 <p><em>Note: API is still a work in progress.</em></p>
 
-<p>API provides an alternative way of interacting with Submitty. It facilitates testing, helps system administrators to modify resources and enables users to create customized frontends.</p>
+<p>Most of the API is restricted to faculty, however the <a href="#students">Students</a> section can be used by students or faculty.
+API provides an alternative way of interacting with Submitty. It facilitates testing, helps system administrators to modify resources and enables users to create customized frontends.</p>
 
 <p>Note that as we rely on the Authorization header information to authenticate users, please make sure that you have a correct Apache configuration file as specified in <a href="https://submitty.org/sysadmin/version_notes/v19.06.02">Installation Version Notes: v19.06.02</a>.</p>
 
@@ -578,6 +601,122 @@ You must replace <code>my_token</code> with your personal API token.
 <p>This endpoint helps system administrators set up cron jobs for automatic grade summary generation.</p>
 <h3 id='http-request-7'>HTTP Request</h3>
 <p><code>POST /api/&lt;semester&gt;/&lt;course&gt;/reports/summaries</code></p>
+<h1 id='gradeables'>Gradeables</h1><h2 id='download-gradeable-json'>Download Gradeable JSON</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">--request</span> GET <span class="se">\</span>
+  <span class="nt">--url</span> &lt;base_url&gt;/api/&lt;semester&gt;/&lt;course&gt;/&lt;gradeable_id&gt;/download <span class="se">\</span>
+  <span class="nt">--header</span> <span class="s1">'Authorization: my_token'</span>
+</code></pre></div>
+<p>This endpoint downloads the JSON representation of the gradeable with the given gradeable_id, course, and semester. 
+This JSON file can be uploaded to add create a new gradeable.</p>
+<h3 id='http-request-8'>HTTP Request</h3>
+<p><code>GET /api/&lt;semester&gt;/&lt;course&gt;/&lt;gradeable_id&gt;/download</code></p>
+<h3 id='parameters-4'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>semester</td>
+<td>Semester of the gradeable</td>
+</tr>
+<tr>
+<td>course</td>
+<td>Course of the gradeable</td>
+</tr>
+<tr>
+<td>gradeable_id</td>
+<td>ID of the gradeable</td>
+</tr>
+</tbody></table>
+<h2 id='upload-gradeable-json'>Upload Gradeable JSON</h2>
+<p>Coming Soon</p>
+<h1 id='students'>Students</h1><h2 id='get-gradeable-values'>Get gradeable values</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> GET <span class="se">\</span>
+  &lt;base_url&gt;/api/&lt;semester&gt;/&lt;course&gt;/gradeable/&lt;gradeable_id&gt;/values?user_id<span class="o">=</span>&lt;user_id&gt;
+
+</code></pre></div>
+<blockquote>
+<p>Possible response examples:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"is_queued"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"queue_position"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"is_grading"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"has_submission"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"autograding_complete"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"has_active_version"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"highest_version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"total_points"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"total_percent"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fail"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Gradeable does not exist"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The endpoint returns values associated with an autograded gradeable with the given gradeable_id, which allows for desemesterining a score on an assignment, if it has been graded, etc. </p>
+<h3 id='http-request-9'>HTTP Request</h3>
+<p><code>GET /api/&lt;semester&gt;/&lt;course&gt;/gradeable/&lt;gradeable_id&gt;/values?user_id=&lt;user_id&gt;</code></p>
+<h3 id='parameters-5'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>user_id</td>
+<td>User&#39;s unique ID</td>
+</tr>
+</tbody></table>
+<h2 id='submit-vcs-gradeable'>Submit VCS Gradeable</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
+  &lt;base_url&gt;/api/&lt;semester&gt;/&lt;course&gt;/gradeable/&lt;gradeable_id&gt;/upload<span class="se">\</span>
+  <span class="nt">-F</span> <span class="nv">user_id</span><span class="o">=</span>student <span class="se">\</span>
+  <span class="nt">-F</span> <span class="nv">vcs_checkout</span><span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  <span class="nt">-F</span> <span class="nv">git_repo_id</span><span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+<blockquote>
+<p>Possible responses:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Successfully uploaded version {#} for {Gradeable Title}"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fail"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid gradeable id '{Gradeable ID}'"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fail"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Student API for upload only supports VCS gradeables"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>The endpoint requests for a VCS gradeable with the given gradeable_id to be submitted.</p>
+<h3 id='http-request-10'>HTTP Request</h3>
+<p><code>POST /api/&lt;semester&gt;/&lt;course&gt;/gradeable/&lt;gradeable_id&gt;/grade</code></p>
+<h3 id='parameters-6'>Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>user_id</td>
+<td>User&#39;s unique ID</td>
+</tr>
+<tr>
+<td>vcs_checkout</td>
+<td>Required to be <code>true</code></td>
+</tr>
+<tr>
+<td>git_repo_id</td>
+<td>Required value, however no specific value is checked.</td>
+</tr>
+</tbody></table>
 
       </div>
       <div class="dark-box">
