@@ -16,6 +16,7 @@ search: true
 
 *Note: API is still a work in progress.*
 
+Most of the API is restricted to faculty, however the [Students](#students) section can be used by students or faculty.
 API provides an alternative way of interacting with Submitty. It facilitates testing, helps system administrators to modify resources and enables users to create customized frontends.
 
 Note that as we rely on the Authorization header information to authenticate users, please make sure that you have a correct Apache configuration file as specified in [Installation Version Notes: v19.06.02](https://submitty.org/sysadmin/version_notes/v19.06.02).
@@ -323,3 +324,123 @@ This endpoint helps system administrators set up cron jobs for automatic grade s
 ### HTTP Request
 
 `POST /api/<semester>/<course>/reports/summaries`
+
+# Gradeables
+
+## Download Gradeable JSON
+
+```shell
+curl --request GET \
+  --url <base_url>/api/<semester>/<course>/<gradeable_id>/download \
+  --header 'Authorization: my_token'
+```
+
+This endpoint downloads the JSON representation of the gradeable with the given gradeable_id, course, and semester. 
+This JSON file can be uploaded to add create a new gradeable.
+
+### HTTP Request
+
+`GET /api/<semester>/<course>/<gradeable_id>/download`
+
+### Parameters
+
+Parameter | Description
+--------- | -----------
+semester | Semester of the gradeable
+course   | Course of the gradeable
+gradeable_id | ID of the gradeable
+
+
+## Upload Gradeable JSON
+
+Coming Soon
+
+# Students
+## Get gradeable values
+
+```shell
+curl -X GET \
+  <base_url>/api/<semester>/<course>/gradeable/<gradeable_id>/values?user_id=<user_id>
+
+```
+> Possible response examples:
+
+```json
+{
+    "status": "success",
+    "data": {
+        "is_queued": false,
+        "queue_position": 3,
+        "is_grading": false,
+        "has_submission": true,
+        "autograding_complete": true,
+        "has_active_version": true,
+        "highest_version": 1,
+        "total_points": 0,
+        "total_percent": 0
+    }
+}
+```
+```json
+{
+    "status": "fail",
+    "message": "Gradeable does not exist"
+}
+```
+
+The endpoint returns values associated with an autograded gradeable with the given gradeable_id, which allows for desemesterining a score on an assignment, if it has been graded, etc. 
+
+### HTTP Request
+
+`GET /api/<semester>/<course>/gradeable/<gradeable_id>/values?user_id=<user_id>`
+
+### Parameters
+
+Parameter | Description
+--------- | -----------
+user_id | User's unique ID
+
+## Submit VCS Gradeable
+
+```shell
+curl -X POST \
+  <base_url>/api/<semester>/<course>/gradeable/<gradeable_id>/upload\
+  -F user_id=student \
+  -F vcs_checkout=true \
+  -F git_repo_id=true
+```
+> Possible responses:
+
+```json
+{
+    "status": "success",
+    "data": "Successfully uploaded version {#} for {Gradeable Title}"
+}
+```
+```json
+{
+    "status": "fail",
+    "message": "Invalid gradeable id '{Gradeable ID}'"
+}
+```
+```json
+{
+    "status": "fail",
+    "message": "Student API for upload only supports VCS gradeables"
+}
+```
+
+
+The endpoint requests for a VCS gradeable with the given gradeable_id to be submitted.
+
+### HTTP Request
+
+`POST /api/<semester>/<course>/gradeable/<gradeable_id>/grade`
+
+### Parameters
+
+Parameter | Description
+--------- | -----------
+user_id | User's unique ID
+vcs_checkout | Required to be `true`
+git_repo_id | Required value, however no specific value is checked.
