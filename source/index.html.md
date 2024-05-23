@@ -336,7 +336,7 @@ curl --request GET \
 ```
 
 This endpoint downloads the JSON representation of the gradeable with the given gradeable_id, course, and semester. 
-This JSON file can be uploaded to add createa a new gradeable.
+This JSON file can be uploaded to add create a new gradeable.
 
 ### HTTP Request
 
@@ -353,27 +353,7 @@ gradeable_id | ID of the gradeable
 
 ## Upload Gradeable JSON
 
-```shell
-curl --request POST \
-  --url <base_url>/api/<semester>/<course>/<gradeable_id>/download \
-  --header 'Authorization: my_token'
-```
-
-This endpoint downloads the JSON representation of the gradeable with the given gradeable_id, course, and semester. 
-This JSON file can be uploaded to add createa a new gradeable.
-
-### HTTP Request
-
-`GET /api/<semester>/<course>/<gradeable_id>/download`
-
-### Parameters
-
-Parameter | Description
---------- | -----------
-semester | Semester of the gradeable
-course   | Course of the gradeable
-gradeable_id | ID of the gradeable
-
+Coming Soon
 
 # Students
 ## Get gradeable values
