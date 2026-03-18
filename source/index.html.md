@@ -381,6 +381,100 @@ curl -X GET \
     }
 }
 ```
+
+```json
+{
+    "status": "success",
+    "data": {
+        "is_queued": false,
+        "queue_position": -1,
+        "is_grading": false,
+        "has_submission": true,
+        "autograding_complete": true,
+        "has_active_version": true,
+        "highest_version": 7,
+        "total_points": 5,
+        "total_percent": 1,
+        "test_cases": [
+            {
+                "name": "Test 0 -- Compilation",
+                "details": "",
+                "is_extra_credit": false,
+                "points_available": 1,
+                "has_extra_results": false,
+                "points_received": 1,
+                "testcase_message": "",
+                "autochecks": []
+            },
+            {
+                "name": "Test 1 -- Provided Example",
+                "details": "",
+                "is_extra_credit": false,
+                "points_available": 1,
+                "has_extra_results": true,
+                "points_received": 1,
+                "testcase_message": "",
+                "autochecks": [
+                    {
+                        "description": "Z &lt;enter&gt;",
+                        "messages": [],
+                        "diff_viewer": {},
+                        "expected": "...",
+                        "actual": "..."
+                    }
+                ]
+            },
+            {
+                "name": "Test 2 -- Provided Example",
+                "details": "",
+                "is_extra_credit": false,
+                "points_available": 1,
+                "has_extra_results": true,
+                "points_received": 1,
+                "testcase_message": "",
+                "autochecks": [
+                    {
+                        "description": "A &lt;enter&gt;",
+                        "messages": [],
+                        "diff_viewer": {},
+                        "expected": "...",
+                        "actual": "..."
+                    }
+                ]
+            },
+            {
+                "name": "Test 3 -- Provided Example",
+                "details": "",
+                "is_extra_credit": false,
+                "points_available": 1,
+                "has_extra_results": true,
+                "points_received": 1,
+                "testcase_message": "",
+                "autochecks": [
+                    {
+                        "description": "J &lt;enter&gt;",
+                        "messages": [],
+                        "diff_viewer": {},
+                        "expected": "...",
+                        "actual": "..."
+                    }
+                ]
+            },
+            {
+                "name": "Test 4 -- Correct Formatting Of lowercase.cpp",
+                "details": "",
+                "is_extra_credit": false,
+                "points_available": 1,
+                "has_extra_results": false,
+                "points_received": 1,
+                "testcase_message": "",
+                "autochecks": []
+            }
+        ]
+    }
+}
+```
+
 ```json
 {
     "status": "fail",
