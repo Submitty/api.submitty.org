@@ -381,6 +381,100 @@ curl -X GET \
     }
 }
 ```
+
+```json
+{
+    "status": "success",
+    "data": {
+        "is_queued": false,
+        "queue_position": -1,
+        "is_grading": false,
+        "has_submission": true,
+        "autograding_complete": true,
+        "has_active_version": true,
+        "highest_version": 7,
+        "total_points": 5,
+        "total_percent": 1,
+        "test_cases": [
+            {
+                "name": "Test 0 -- Compilation",
+                "details": "",
+                "is_extra_credit": false,
+                "points_available": 1,
+                "has_extra_results": false,
+                "points_received": 1,
+                "testcase_message": "",
+                "autochecks": []
+            },
+            {
+                "name": "Test 1 -- Provided Example",
+                "details": "",
+                "is_extra_credit": false,
+                "points_available": 1,
+                "has_extra_results": true,
+                "points_received": 1,
+                "testcase_message": "",
+                "autochecks": [
+                    {
+                        "description": "Z &lt;enter&gt;",
+                        "messages": [],
+                        "diff_viewer": {},
+                        "expected": "...",
+                        "actual": "..."
+                    }
+                ]
+            },
+            {
+                "name": "Test 2 -- Provided Example",
+                "details": "",
+                "is_extra_credit": false,
+                "points_available": 1,
+                "has_extra_results": true,
+                "points_received": 1,
+                "testcase_message": "",
+                "autochecks": [
+                    {
+                        "description": "A &lt;enter&gt;",
+                        "messages": [],
+                        "diff_viewer": {},
+                        "expected": "...",
+                        "actual": "..."
+                    }
+                ]
+            },
+            {
+                "name": "Test 3 -- Provided Example",
+                "details": "",
+                "is_extra_credit": false,
+                "points_available": 1,
+                "has_extra_results": true,
+                "points_received": 1,
+                "testcase_message": "",
+                "autochecks": [
+                    {
+                        "description": "J &lt;enter&gt;",
+                        "messages": [],
+                        "diff_viewer": {},
+                        "expected": "...",
+                        "actual": "..."
+                    }
+                ]
+            },
+            {
+                "name": "Test 4 -- Correct Formatting Of lowercase.cpp",
+                "details": "",
+                "is_extra_credit": false,
+                "points_available": 1,
+                "has_extra_results": false,
+                "points_received": 1,
+                "testcase_message": "",
+                "autochecks": []
+            }
+        ]
+    }
+}
+```
+
 ```json
 {
     "status": "fail",
@@ -398,8 +492,10 @@ The endpoint returns values associated with an autograded gradeable with the giv
 
 Parameter | Description
 --------- | -----------
-user_id | User's unique ID
-
+user_id   | User's unique ID (Optional if instructor wants to get values for student)
+semester  | Semester of the gradeable
+course    | Course of the gradeable
+gradeable_id | ID of the gradeable
 ## Submit VCS Gradeable
 
 ```shell
@@ -441,6 +537,102 @@ The endpoint requests for a VCS gradeable with the given gradeable_id to be subm
 
 Parameter | Description
 --------- | -----------
-user_id | User's unique ID
+user_id | User's unique ID (Optional if instructor wants to submit for student)
 vcs_checkout | Required to be `true`
 git_repo_id | Required value, however no specific value is checked.
+semester | Semester of the gradeable
+course   | Course of the gradeable
+gradeable_id | ID of the gradeable
+
+## Retrieve a list of gradeables from a course
+
+```shell
+curl -X GET \
+  <base_url>/api/<semester>/<course>/gradeables?user_id=<user_id>
+```
+> Possible responses:
+
+```json
+{
+    "status": "success",
+    "data": {
+        "obj1-1pt-l": {
+            "id": "obj1-1pt-l",
+            "title": "Objective 1 - Lowercase (1 pt)",
+            "instructions_url": "",
+            "syllabus_bucket": "homework",
+            "section": 2,
+            "section_name": "OPEN",
+            "due_date": {
+                "date": "2026-02-27 23:59:59.000000",
+                "timezone_type": 3,
+                "timezone": "America\/Los_Angeles"
+            },
+            "gradeable_type": "Electronic File",
+            "vcs_repository":
+            "https://my_vcs_url.org/vcs",
+            "vcs_subdirectory": "homework\/01_cpp_types\/1pt_lowercase"
+        },
+        "obj1-1pt-p": {
+            "id": "obj1-1pt-p",
+            "title": "Objective 1 - Pets (1 pt)",
+            "instructions_url": "",
+            "syllabus_bucket": "homework",
+            "section": 5,
+            "section_name": "GRADED",
+            "due_date": {
+                "date": "2026-01-15 23:59:59.000000",
+                "timezone_type": 3,
+                "timezone": "America\/Los_Angeles"
+            },
+        },
+    },
+}
+```
+
+
+The endpoint requests all homeworks assigned to a user in a given term and course.
+
+### HTTP Request
+
+`POST /api/<semester>/<course>/gradeables`
+
+### Parameters
+
+Parameter | Description
+--------- | -----------
+user_id | User's unique ID (Optional if instructor wants to submit for student)
+semester | Semester of the gradeable
+course   | Course of the gradeable
+
+## ME endpoint
+
+```shell
+curl -X GET \
+  <base_url>/api/me
+```
+> Possible responses:
+
+```json
+{
+    "status": "fail",
+    "message": "Unauthenticated access. Please log in."
+}
+```
+```json
+{
+    "status": "success",
+    "data": {
+        "user_id": "student",
+        "user_given_name": "Joe",
+        "user_family_name": "Student"
+    }
+}
+```
+
+
+The endpoint is used to verify logged in user
+
+### HTTP Request
+
+`POST /api/me`
